@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            position: fixed;
+            left: 100px;
+            top: 0;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    
+    <script>
+        var box=document.querySelector('.box')
+        box.onmousedown=function(){
+            // console.log(13)
+            var downEv=window.event//事件对象
+            var downX=downEv.clientX
+            var downY=downEv.clientY
+            console.log(downX,'按下了坐标')
+            console.log(box.offsetLeft,'盒子距离页面左边的距离')
+            var downXtoBoxBorderLeft=downX-box.offsetLeft//点下去距离盒子左边=点下去的坐标-盒子距离页面的距离
+            var downXtoBoxBorderTop=downY-box.offsetTop//点下去距离盒子左边=点下去的坐标-盒子距离页面的距离
+
+            document.onmousemove=function(){
+                var moveEv=window.event//事件对象
+                // console.log(moveEv,moveEv.clientX,'移动啦')
+                box.style.left=moveEv.clientX-downXtoBoxBorderLeft+'px'//鼠标在客户端中的坐标
+                box.style.top=moveEv.clientY-downXtoBoxBorderTop+'px'//鼠标在客户端中的坐标
+            }
+            
+        }
+
+        box.onmouseup=function(){
+            document.onmousemove=null//鼠标抬起 取消移动事件
+        }
+
+       
+    </script>
+</body>
+</html>
